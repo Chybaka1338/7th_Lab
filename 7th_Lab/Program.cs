@@ -12,9 +12,9 @@ namespace _7th_Lab
         static void Main(string[] args)
         {
             Task3_1();
+            Task3_4();
             Console.WriteLine("press any key to finish process");
             Console.ReadKey();
-            Student student = new Student();
         }
 
         static void Task3_1()
