@@ -10,26 +10,28 @@ namespace _7th_Lab
     internal class Group
     {
         List<Student> _students;
-
+        string _name;
         double _middleScoreGroup;
         public double MiddleScoreGroup
         {
             get { return _middleScoreGroup; }
         }
-        public Group(List<Student> students)
+
+        public Group(List<Student> students, string name)
         {
             _students = students;
             SetMiddleScore();
+            _name = name;
         }
 
-        public static Group InitializeGroup()
+        public static Group InitializeGroup(string name)
         {
             List<Student> students = new List<Student>();
             int numberExams = 5;
             while(true)
             {
                 Student student = Student.InitializeStudent(numberExams);
-                if (student.Equals(null)) return new Group(students);
+                if (student == null) return new Group(students, name);
                 students.Add(student);
             }
         }
@@ -53,16 +55,7 @@ namespace _7th_Lab
 
         public void Print()
         {
-            if (_students.Equals(null))
-            {
-                Console.WriteLine("Group is empty");
-                return;
-            }
-
-            foreach(var student in _students)
-            {
-                student.
-            }
+            Console.WriteLine($"{_name} has middle score {_middleScoreGroup}");
         }
     }
 }

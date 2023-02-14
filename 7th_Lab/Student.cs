@@ -26,7 +26,7 @@ namespace _7th_Lab
 
         public static Student InitializeStudent(int numberExams)
         {
-            Console.Write("Enter the last name of student");
+            Console.Write("Enter the last name of student: ");
             string lastName = Console.ReadLine();
             int[] marks = SetMarks(numberExams);
 
@@ -78,6 +78,7 @@ namespace _7th_Lab
 
         public void Print()
         {
+            Array.ForEach(_marks, mark => Console.Write($"\t{mark}\t"));
             Console.WriteLine($"{_lastName}");
         }
     }
