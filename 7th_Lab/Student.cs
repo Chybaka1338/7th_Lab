@@ -17,6 +17,12 @@ namespace _7th_Lab
             get { return _lastName; }
         }
 
+        public Student(string name)
+        {
+            _lastName = name;
+
+        }
+
         private Student(string lastName, int[] marks, double middleScore)
         {
             _lastName = lastName;
@@ -24,11 +30,11 @@ namespace _7th_Lab
             _middleScore = middleScore;
         }
 
-        public static Student InitializeStudent(int numberExams)
+        public static Student InitializeStudent(int numberExams, SetMarks setMarks)
         {
             Console.Write("Enter the last name of student: ");
             string lastName = Console.ReadLine();
-            int[] marks = SetMarks(numberExams);
+            int[] marks = setMarks.Invoke(numberExams);
 
             if (String.IsNullOrEmpty(lastName) || marks == null)
                 return null;
@@ -57,6 +63,19 @@ namespace _7th_Lab
             {
                 return null;
             }
+            return marks;
+        }
+
+        static int[] SetMarksAuto(int numberExams)
+        {
+            int seed = DateTime.Now.Millisecond;
+            Random r = new Random(seed);
+            int[] marks = new int[numberExams];
+            for(int i = 0; i < marks.Length; i++)
+            {
+                marks[i] = r.Next(2, 5);
+            }
+            
             return marks;
         }
 
