@@ -12,9 +12,22 @@ namespace _7th_Lab
         List<Student> _students;
         string _name;
         double _middleScoreGroup;
+
         public double MiddleScoreGroup
         {
             get { return _middleScoreGroup; }
+        }
+
+        public int NumberStudents
+        {
+            get { return _students.Count; }
+        }
+
+        public Group()
+        {
+            _name = null;
+            _students = new List<Student>();
+            _middleScoreGroup = 0;
         }
 
         public Group(List<Student> students, string name)
@@ -24,13 +37,13 @@ namespace _7th_Lab
             _name = name;
         }
 
-        public static Group InitializeGroup(string name)
+        public static Group InitializeGroup(string name, SetMarks setMarks)
         {
             List<Student> students = new List<Student>();
             int numberExams = 5;
             while(true)
             {
-                Student student = Student.InitializeStudent(numberExams);
+                Student student = Student.InitializeStudent(numberExams, setMarks);
                 if (student == null) return new Group(students, name);
                 students.Add(student);
             }
@@ -55,7 +68,31 @@ namespace _7th_Lab
 
         public void Print()
         {
-            Console.WriteLine($"{_name} has middle score {_middleScoreGroup}");
+            Console.WriteLine($"{_name} has middle score {Math.Round(_middleScoreGroup, 1)}");
+        }
+
+        public void ExpandGroup(Group group)
+        {
+            Group commonGroup = new Group();
+            int i = 0;
+            int j = 0;
+
+            while(i < group.NumberStudents && j < this.NumberStudents)
+            {
+                Student s = group._students[i].MiddleScore < this._students[j].MiddleScore ? this._students[j++] : group._students[i++];
+                commonGroup._students.Add(s);
+            }
+
+            while(i < group.NumberStudents)
+            {
+                commonGroup._students.Add(group._students[i++]);
+            }
+
+            while (j < this.NumberStudents)
+            {
+                commonGroup._students.Add(this._students[j++]);
+            }
+            this._students = commonGroup._students;
         }
     }
 }
