@@ -40,5 +40,11 @@ namespace _7th_Lab
         {
             return new Random(DateTime.Now.Second).Next(1350, 1620);
         }
+
+        public new void Print()
+        {
+
+            Console.WriteLine($"{this.LastName} {_time.Minute}m : {_time.Second}s");
+        }
     }
 }
