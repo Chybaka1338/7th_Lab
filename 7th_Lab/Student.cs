@@ -2,103 +2,44 @@
 
 namespace _7th_Lab
 {
-    internal class Student
+    delegate int[] SetMarks(int numberExams);
+    internal class Student : Person
     {
         int[] _marks;
         double _middleScore;
-        string _lastName;
-        public double MiddleScore
-        {
-            get { return _middleScore; }
-        }
 
-        public string LastName
-        {
-            get { return _lastName; }
-        }
+        public double MiddleScore { get { return _middleScore; } }
 
-        public Student(string name)
+        public Student(string _lastName) : base(_lastName)
         {
-            _lastName = name;
 
-        }
-
-        private Student(string lastName, int[] marks, double middleScore)
-        {
-            _lastName = lastName;
-            _marks = marks;
-            _middleScore = middleScore;
         }
 
         public static Student InitializeStudent(int numberExams, SetMarks setMarks)
         {
-            Console.Write("Enter the last name of student: ");
-            string lastName = Console.ReadLine();
-            int[] marks = setMarks.Invoke(numberExams);
-
-            if (String.IsNullOrEmpty(lastName) || marks == null)
-                return null;
-
-            double middle = GetMiddleScore(marks);
-            return new Student(lastName, marks, middle);
+            Student student = new Student("");
+            student._marks = setMarks.Invoke(numberExams);
+            student.SetMiddleScore();
+            return student;
         }
 
-        static int[] SetMarks(int numberExams)
+        private void SetMiddleScore()
         {
-            int[] marks = new int[numberExams];
-            try
+            _middleScore = 0;
+            foreach(var mark in _marks)
             {
-                for (int i = 0; i < marks.Length; i++)
-                {
-                    int mark;
-                    do
-                    {
-                        Console.Write($"input {i + 1} mark: ");
-                        mark = int.Parse(Console.ReadLine());
-                    } while (mark < 2 && mark > 5);
-                    marks[i] = mark;
-                }
-            } 
-            catch(Exception)
-            {
-                return null;
+                _middleScore += mark;
             }
-            return marks;
-        }
-
-        static int[] SetMarksAuto(int numberExams)
-        {
-            int seed = DateTime.Now.Millisecond;
-            Random r = new Random(seed);
-            int[] marks = new int[numberExams];
-            for(int i = 0; i < marks.Length; i++)
-            {
-                marks[i] = r.Next(2, 5);
-            }
-            
-            return marks;
-        }
-
-        static double GetMiddleScore(int[] marks)
-        {
-            if(marks == null)
-            {
-                return 0;
-            }
-
-            double middleScore = 0;
-            foreach(var mark in marks)
-            {
-                middleScore += mark;
-            }
-
-            return middleScore / marks.Length;
+            _middleScore /= _marks.Length;
         }
 
         public void Print()
         {
-            Array.ForEach(_marks, mark => Console.Write($"\t{mark}\t"));
-            Console.WriteLine($"{_lastName}");
+            Console.Write($"{LastName} ");
+            foreach (var mark in _marks)
+            {
+                Console.Write(mark + ' ');
+            }
         }
     }
 }
