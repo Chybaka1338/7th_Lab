@@ -53,32 +53,37 @@ namespace _7th_Lab
 
         public Group ExpandGroup(Group g)
         {
-            List<Person> commonGroup = new List<Person>();
+            Group commonGroup = new Group();
+            List<Person> commonPersons = new List<Person>();
             int i = 0;
             int j = 0;
-            while (i < this.Count && j < g2.Count)
+            while (i < _persons.Count && j < g._persons.Count)
             {
-                Sportsmen s = g1[i].TimeSecond < g2[j].TimeSecond ? g1[i++] : g2[j++];
-                commonGroup.Add(s);
+                var s = _persons[i].GetResult() < g._persons[j].GetResult() ? _persons[i++] : g._persons[j++];
+                commonPersons.Add(s);
             }
-            while (i < g1.Count)
+            while (i < _persons.Count)
             {
-                commonGroup.Add(g1[i++]);
+                commonPersons.Add(_persons[i++]);
             }
-            while (j < g2.Count)
+            while (j < g._persons.Count)
             {
-                commonGroup.Add(g2[j++]);
+                commonPersons.Add(g._persons[j++]);
             }
+            commonGroup._persons = commonPersons;
+            commonGroup._middle = (g.Middle + Middle) / 2;
 
             return commonGroup;
         }
 
         public void PrintGroup()
         {
+            Console.WriteLine("Group");
             foreach(var person in _persons)
             {
                 person.Print();
             }
+            Console.WriteLine("__________________");
         }
     }
 }
