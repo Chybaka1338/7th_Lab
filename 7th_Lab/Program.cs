@@ -12,7 +12,9 @@ namespace _7th_Lab
         {
             seed = DateTime.Now.Millisecond;
             r = new Random(seed);
-            Task3_4();
+            Task3_1();
+            //Task3_4();
+
             Console.ReadKey();
         }
 
@@ -32,7 +34,7 @@ namespace _7th_Lab
 
             groups.ForEach(g =>
             {
-                Console.WriteLine($"Group: {Math.Round(g.Middle, 1)}");
+                Console.WriteLine($"Group has middle score: {Math.Round(g.Middle, 1)}");
                 g.PrintGroup();
             });
         }
@@ -64,18 +66,19 @@ namespace _7th_Lab
             List<Group> groups = new List<Group>();
             for(int i = 0; i < 2; i++)
             {
-                groups.Add(Group.InitializeGroup(GetListSportsmen()).Sort);
+                groups.Add(Group.InitializeGroup(GetListSportsmens()));
             }
-
-            
 
             groups.ForEach(g =>
             {
                 g.PrintGroup();
             });
+
+            var commonGroup = groups[0].ExpandGroup(groups[1]);
+            commonGroup.PrintGroup();
         }
 
-        static List<Person> GetListSportsmen()
+        static List<Person> GetListSportsmens()
         {
             List<Person> people = new List<Person>();
             for (int i = 0; i < 6; i++)
