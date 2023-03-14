@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace _7th_Lab
 {
-    internal class Person
+    abstract class Person
     {
         string _lastName;
 
@@ -16,5 +16,9 @@ namespace _7th_Lab
         {
             _lastName = lastName;
         }
+
+        abstract public void Print();
+
+        abstract public double GetResult();
     }
 }

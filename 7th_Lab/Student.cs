@@ -8,16 +8,15 @@ namespace _7th_Lab
         int[] _marks;
         double _middleScore;
 
-        public double MiddleScore { get { return _middleScore; } }
 
         public Student(string _lastName) : base(_lastName)
         {
 
         }
 
-        public static Student InitializeStudent(int numberExams, SetMarks setMarks)
+        public static Student InitializeStudent(string lastName, int numberExams, SetMarks setMarks)
         {
-            Student student = new Student("");
+            Student student = new Student(lastName);
             student._marks = setMarks.Invoke(numberExams);
             student.SetMiddleScore();
             return student;
@@ -33,13 +32,17 @@ namespace _7th_Lab
             _middleScore /= _marks.Length;
         }
 
+        override
         public void Print()
         {
-            Console.Write($"{LastName} ");
-            foreach (var mark in _marks)
-            {
-                Console.Write(mark + ' ');
-            }
+            Console.Write($"{LastName} {_middleScore}");
+            Console.WriteLine();
         }
+
+        override
+        public double GetResult()
+        {
+            return _middleScore;
+        } 
     }
 }
