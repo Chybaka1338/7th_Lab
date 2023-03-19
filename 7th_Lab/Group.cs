@@ -38,7 +38,7 @@ namespace _7th_Lab
 
         public void Sort()
         {
-            if(_persons == null) 
+            if(_persons == null || _persons.Count == 0) 
             {
                 Process.GetCurrentProcess().Kill();
             }

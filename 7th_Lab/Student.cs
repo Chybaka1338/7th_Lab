@@ -8,10 +8,17 @@ namespace _7th_Lab
         int[] _marks;
         double _middleScore;
 
-
-        public Student(string _lastName) : base(_lastName)
+        Student(string _lastName) : base(_lastName)
         {
 
+        }
+
+        public static Student InitializeStudent(string lastName, int[] marks)
+        {
+            Student student = new Student(lastName);
+            student._marks = marks;
+            student.SetMiddleScore();
+            return student;
         }
 
         public static Student InitializeStudent(string lastName, int numberExams, SetMarks setMarks)
